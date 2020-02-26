@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg bg-black " >
+  <a class="navbar-brand text-rosa" href="#">Imóveis</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-light" routerLink="/home">Home </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar"
+       aria-label="Pesquisar" type="text" name="search">
+      <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+  </div>
+</nav>
+<div class="jumbotron jumbotron-fluid banner">
+  <div class="container">
+    <h1 class="display-4 text-light">Vitrine de Imóveis</h1>
+    <p class="lead text-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+  </div>
+</div>
+<div class="container">
+<div class="row">
+  <div padding *ngFor="let c of consulta | paginate: { itemsPerPage: 6, currentPage: paginaAtual }; let i = index" tappable> 
+    <div [ngSwitch]="c.publish">
+      <div *ngSwitchCase="true" ng-if="c.geolocation.lat !== null && c.geolocation.lng !== null">
+            <div class="col-sm margem" >
+              <div class="card crescer" style="width: 20rem; height: 30rem;">
+                <h5 class="card-title card-body">R$ {{c.price}}</h5>
+                <img src="{{c.images[0]}}" style="width: 20rem; height: 51%;">
+                <div class="card-body">
+                  <p class="card-text">{{c.address.formattedAddress}}  </p> 
+                  <a (click)="detalhe(c.id, c.price,c.address.formattedAddress ,c.bathrooms,
+                   c.bedrooms, c.parkingSpaces, c.usableArea,c.images[0],c.images[1],c.images[2],c.images[3],c.images[4],
+                   c.images[5])" routerLinkActive="active" class="btn btn-rosa text-light">Detalhes</a><router-outlet></router-outlet>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+  </div>
+  <div class="bottom section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="copyright">
+            <p>© <span>2020</span> All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+     
